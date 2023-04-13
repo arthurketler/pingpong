@@ -84,10 +84,15 @@
    y: (field.h - 200) / 2,
    w: line.w,
    h: 200,
+   speed: 1.5,
 
    //move a raquete com a bolinha
    _move: function () {
-    this.y = ball.y - this.h / 2;
+    if (this.y + this.h / 2 < ball.y + ball.r) {
+     this.y += this.speed;
+    } else {
+     this.y -= this.speed;
+    }
    },
 
 
@@ -156,9 +161,14 @@
 
    //pontos dos jogadores
    _pontoJogador1: function () {
+    //muda placar e posição da bola
     score.human +=1;
     this.x = field.w / 2;
     this.y = field.h / 2;
+    this.speed += 1; //vel bola
+    rightPaddle.speed += .5; // vel raquete
+
+    //decide direção da bola
     do {
      this.directionX = Math.round((Math.random() - 0.5) * 2);
      this.directionY = Math.round((Math.random() - 0.5) * 2);
@@ -166,15 +176,21 @@
    },
 
    _pontoJogador2: function () {
+    //muda placar e posição da bola
     score.computer +=1;
     this.x = field.w / 2;
     this.y = field.h / 2;
+    this.speed += 1;
+
+    //decide direção da bola
     do {
      this.directionX = Math.round((Math.random() - 0.5) * 2);
      this.directionY = Math.round((Math.random() - 0.5) * 2);
     }while (this.directionX == 0 || this.directionY == 0);
+
+    //easter egg
     if (score.computer > 9) {
-     window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&pp=ygUIcmljIHJvbGw%3D";
+     //window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&pp=ygUIcmljIHJvbGw%3D";
     }
    },
 
